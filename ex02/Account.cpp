@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <functional>
 #include <iostream>
+#include <ctime>
 
 int Account::_nbAccounts;
 int Account::_totalAmount;
@@ -16,6 +17,7 @@ int Account::checkAmount() const
 
 Account::Account(int initial_deposit)
 {
+    Account::_displayTimestamp();
     static int index = 0;
     _amount = initial_deposit;
     _accountIndex = index;
@@ -30,23 +32,27 @@ Account::Account(int initial_deposit)
 
 Account::~Account(void)
 {
+    Account::_displayTimestamp();
     std::cout << "index:" << _accountIndex << ";ammount:" << _amount << ";closed\n";
 }
 
 void Account::displayAccountsInfos()
 {
+    Account::_displayTimestamp();
     std::cout << "accounts:" << _nbAccounts << ";total:" << _totalAmount;
     std::cout << ";deposits:" << _totalNbDeposits << ";withdrawals:" << _totalNbWithdrawals << "\n";
 }
 
 void Account::displayStatus() const
 {
+    Account::_displayTimestamp();
     std::cout << "index:" << _accountIndex << ";amount:" << _amount;
     std::cout << ";deposits:" << _nbDeposits << ";withdrawals:" << _nbWithdrawals << "\n";
 }
 
 void Account::makeDeposit(int deposit)
 {
+    Account::_displayTimestamp();
     std::cout << "index:" << _accountIndex << ";p_amount:" << _amount;
     std::cout << ";deposit:" << deposit;
     _amount += deposit;
@@ -59,9 +65,10 @@ void Account::makeDeposit(int deposit)
 
 bool Account::makeWithdrawal(int withdrawal)
 {
+    Account::_displayTimestamp();
     std::cout << "index:" << _accountIndex << ";p_amount:" << _amount;
     std::cout << ";withdrawal:";
-    if(_amount < withdrawal)
+    if (_amount < withdrawal)
     {
         std::cout << "refused\n";
         return 0;
@@ -78,3 +85,17 @@ bool Account::makeWithdrawal(int withdrawal)
     }
 }
 
+void Account::_displayTimestamp()
+{
+    time_t timee = 0;
+
+    time(&timee);
+    struct tm *ti = localtime(&timee);
+
+
+    char buff[30];
+    // std::cout << "\n\n\n\n";
+    std::strftime(buff, sizeof(buff), "[%Y%m%d_%H%M%S] ", ti);
+    std::cout << buff << " ";
+    // std::cout << "[" << std::put_time(ti, "%Y-%m-%d %H:%M:%S") << "] ";
+}

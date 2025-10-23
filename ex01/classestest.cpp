@@ -23,7 +23,7 @@ void phonebook::add(phonebook *book)
         book->index = 0;
     else
         book->index++;
-    if(book->total < 7)
+    if (book->total < 8)
         book->total++;
 }
 
@@ -35,12 +35,7 @@ void phonebook::printer(std::string string, int last)
         string.append(".");
     }
     else if (string.size() < 10)
-    {
-        while (string.size() != 10)
-        {
-            string += " ";
-        }
-    }
+            string.insert(0, 10 - string.size(), ' ');
     if (!last)
         std::cout << string << "|";
     else
@@ -51,31 +46,39 @@ void phonebook::search(phonebook *book)
 {
     int i = book->total;
     int t = 0;
-    if (i > 7)
-        i = 7;
+
+    phonebook::printer("     Index", 0);
+    phonebook::printer("First Name", 0);
+    phonebook::printer(" Last Name", 0);
+    phonebook::printer("  Nickname", 1);
     while (t < i)
     {
         contact contact = book->contacts[t];
+        phonebook::printer(std::to_string(t), 0);
         phonebook::printer(contact.f_name, 0);
         phonebook::printer(contact.l_name, 0);
-        phonebook::printer(contact.nickname, 0);
-        phonebook::printer(contact.number, 0);
-        phonebook::printer(contact.ds, 1);
+        phonebook::printer(contact.nickname, 1);
         t++;
     }
     std::string input;
+    std::cout << "Enter Index: ";
     std::cin >> input;
     t = 0;
-    while(t < input.size())
+    while (t < input.size())
     {
-      if(!std::isdigit(input[t]))
+        if (!std::isdigit(input[t]))
         {
-            std::cout << "wrong input\n";
-            return ;
+            std::cout << "Non Numerical Value Detected\n";
+            return;
         }
         t++;
     }
     int index = std::stoi(input);
+    if (index > book->total)
+    {
+        std::cout << "Out Of Bounds\n";
+        return;
+    }
     if (index >= 0 && index < book->total)
     {
         std::cout << "First Name: " << book->contacts[index].f_name << "\n";
@@ -99,18 +102,11 @@ int main()
     while (1)
     {
         std::cin >> action;
-        if (action == "add")
-        {
+        if (action == "ADD")
             pb.add(&pb);
-            // printf("compared\n");
-        }
-        else if (action == "search")
-        {
-            // std::cout << pb.contacts[0].f_name;
+        else if (action == "SEARCH")
             pb.search(&pb);
-        }
-        else if (action == "exit")
+        else if (action == "EXIT")
             return 0;
     }
-
 }
