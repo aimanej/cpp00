@@ -1,6 +1,4 @@
-#include <string>
-#include <iostream>
-#include "phonebook.hpp"
+#include "book.hpp"
 
 void phonebook::add(phonebook *book)
 {
@@ -90,13 +88,17 @@ void phonebook::search(phonebook *book)
     else
         std::cout << "index provided is out of range... search again\n";
 }
+phonebook::phonebook()
+{
+    this->index = 0;
+    this->total = 0;
+}
 
 int main()
 {
     int t = 0;
     phonebook pb;
-    pb.index = 0;
-    pb.total = 0;
+    
     contact test;
     std::string action;
     while (1)
