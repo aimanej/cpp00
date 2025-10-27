@@ -1,28 +1,42 @@
-#include "book.hpp"
+#include "../includes/phonebook.hpp"
+
+
+// void contact::setter()
+// {
+//     std::cout << "first name: ";
+//     std::cin >> this->str[f_name];
+//     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//     std::cout << "last name: ";
+//     std::cin >> this->str[l_name];
+//     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//     std::cout << "Nickname: ";
+//     std::cin >> this->str[nickname];
+//     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//     std::cout << "Phone number: ";
+//     std::cin >> this->str[number];
+//     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//     std::cout << "Darkest secret: ";
+//     std::cin >> this->str[ds];
+//     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+// }
+// std::string contact::getmem(e_mem mem)
+// {
+//     return this->str[mem];
+// }
 
 void phonebook::add(phonebook *book)
 {
-    int index = book->index;
-    int total = book->total;
+    int index = this->index;
+    int total = this->total;
 
-    contact &contact = book->contacts[index];
-    std::cout << "first name: ";
-    std::cin >> contact.f_name;
-    std::cin.clear();
-    std::cout << "last name: ";
-    std::cin >> contact.l_name;
-    std::cout << "Nickname: ";
-    std::cin >> contact.nickname;
-    std::cout << "Phone number: ";
-    std::cin >> contact.number;
-    std::cout << "Darkest secret: ";
-    std::cin >> contact.ds;
+    contact &contact = this->contacts[index];
+    contact.setter();
     if (index == 7)
         book->index = 0;
     else
         book->index++;
-    if (book->total < 8)
-        book->total++;
+    if(total != 7)
+        this->total++;
 }
 
 void phonebook::printer(std::string string, int last)
@@ -33,7 +47,7 @@ void phonebook::printer(std::string string, int last)
         string.append(".");
     }
     else if (string.size() < 10)
-            string.insert(0, 10 - string.size(), ' ');
+        string.insert(0, 10 - string.size(), ' ');
     if (!last)
         std::cout << string << "|";
     else
@@ -53,9 +67,9 @@ void phonebook::search(phonebook *book)
     {
         contact contact = book->contacts[t];
         phonebook::printer(std::to_string(t), 0);
-        phonebook::printer(contact.f_name, 0);
-        phonebook::printer(contact.l_name, 0);
-        phonebook::printer(contact.nickname, 1);
+        phonebook::printer(contact.getmem(f_name), 0);
+        phonebook::printer(contact.getmem(l_name), 0);
+        phonebook::printer(contact.getmem(nickname), 1);
         t++;
     }
     std::string input;
@@ -79,11 +93,11 @@ void phonebook::search(phonebook *book)
     }
     if (index >= 0 && index < book->total)
     {
-        std::cout << "First Name: " << book->contacts[index].f_name << "\n";
-        std::cout << "Last Name: " << book->contacts[index].l_name << "\n";
-        std::cout << "Nickname: " << book->contacts[index].nickname << "\n";
-        std::cout << "Number:  " << book->contacts[index].number << "\n";
-        std::cout << "Darkest Secret: " << book->contacts[index].ds << "\n";
+        std::cout << "First Name: " << book->contacts[index].getmem(f_name) << "\n";
+        std::cout << "Last Name: " << book->contacts[index].getmem(l_name) << "\n";
+        std::cout << "Nickname: " << book->contacts[index].getmem(nickname) << "\n";
+        std::cout << "Number:  " << book->contacts[index].getmem(number) << "\n";
+        std::cout << "Darkest Secret: " << book->contacts[index].getmem(ds) << "\n";
     }
     else
         std::cout << "index provided is out of range... search again\n";
@@ -98,7 +112,7 @@ int main()
 {
     int t = 0;
     phonebook pb;
-    
+
     contact test;
     std::string action;
     while (1)

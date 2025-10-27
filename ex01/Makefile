@@ -1,8 +1,8 @@
-Srcs = book.cpp
+Srcs = sources/book.cpp
 
-Header = book.hpp
+Header = includes/phonebook.hpp includes/contacts.hpp
 
-Flags = -Wall -Wextra -Werror
+Flags = -g -Wall -Wextra -Werror
 
 Name = book
 
