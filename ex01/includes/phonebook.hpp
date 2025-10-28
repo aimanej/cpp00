@@ -3,21 +3,25 @@
 
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <limits>
 #include "contacts.hpp"
 
-class phonebook
+class PhoneBook
 {
 private:
     int index;
     int total;
-    contact contacts[8];
-
+    Contact contacts[8];
+    void display_all_contacts();
+    void display_one_contact(int index);
 public:
-    void add(phonebook *book);
-    void search(phonebook *book);
-    void printer(std::string string, int last);
-    phonebook();
+    void add();
+    void search();
+    PhoneBook();
 };
+
+void printer(std::string string, int last);
+int flusher();
 
 #endif

@@ -9,7 +9,7 @@ typedef enum book{
     ds,
 }e_mem;
 
-class contact
+class Contact
 {
 private:
     std::string str[5];
@@ -17,7 +17,7 @@ private:
 
 public:
     std::string getmem(e_mem mem);
-    void setter();
+    void set_contact_info();
 };
 
 #endif

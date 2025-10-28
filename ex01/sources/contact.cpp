@@ -1,24 +1,29 @@
 #include "../includes/phonebook.hpp"
 
-void contact::setter()
+void Contact::set_contact_info()
 {
     std::cout << "first name: ";
     std::cin >> this->str[f_name];
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if(flusher())
+        return;
     std::cout << "last name: ";
     std::cin >> this->str[l_name];
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+   if(flusher())
+        return;
     std::cout << "Nickname: ";
     std::cin >> this->str[nickname];
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if(flusher())
+        return;
     std::cout << "Phone number: ";
     std::cin >> this->str[number];
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if(flusher())
+        return;
     std::cout << "Darkest secret: ";
     std::cin >> this->str[ds];
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if(flusher())
+        return;
 }
-std::string contact::getmem(e_mem mem)
+std::string Contact::getmem(e_mem mem)
 {
     return this->str[mem];
 }

@@ -1,4 +1,4 @@
-Srcs = sources/book.cpp
+Srcs = sources/main.cpp sources/contact.cpp sources/add.cpp sources/search.cpp sources/book_printer.cpp
 
 Header = includes/phonebook.hpp includes/contacts.hpp
 
